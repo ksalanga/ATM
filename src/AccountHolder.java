@@ -1,10 +1,10 @@
 public class AccountHolder {
 	private int SSN;
 	private String Name;
-	private int Phone;
+	private double Phone;
 	private String Address;
 	
-	public AccountHolder(int SSN, String Name, int Phone, String Address) {
+	public AccountHolder(int SSN, String Name, double Phone, String Address) {
 		this.SSN = SSN;
 		this.Name = Name;
 		this.Phone = Phone;
@@ -19,7 +19,7 @@ public class AccountHolder {
 		return SSN;
 	}
 	
-	public int getPhone() {
+	public double getPhone() {
 		return Phone;
 	}
 	

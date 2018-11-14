@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class ATM {
-	static Scanner in = new Scanner(System.in);;
+	private Scanner in;
 	
 	private BankAccount bankAccount;
 	
@@ -10,21 +10,35 @@ public class ATM {
 	}
 
 	public static void main(String args[]) {
-		ATM atm = new ATM(newAccount());
-		
-		atm.start();
+		ATM atm = new ATM(new BankAccount(12, 12, new AccountHolder(12, "jeff", 908, "jf")));
+
+		atm.run();
 	}
 	
-	public static BankAccount newAccount() {
-		int ssn; String name; int phone; String address; double balance; int pin;
+	public void run() {
+		in = new Scanner(System.in);
+		System.out.print("Account # : ");
+		System.out.print("    PIN # : ");
+		//ask user for account #
+		//Ask for pin
+		//validate account/pin
+		//if valid, show menu
 		
+		in.close();
+	}
+	
+/**	
+	public static BankAccount newAccount() {
+		int ssn; String name; double phone; String address; double balance; int pin;
+		
+		System.out.println("NEW ACCOUNT");
 		System.out.println("SSN: ");
 		ssn = in.nextInt();
 		in.nextLine();
 		System.out.println("Name: ");
 		name = in.nextLine();
 		System.out.println("Phone: ");
-		phone = in.nextInt();
+		phone = in.nextDouble();
 		in.nextLine();
 		System.out.println("Address: ");
 		address = in.nextLine();
@@ -35,12 +49,10 @@ public class ATM {
 		balance = in.nextDouble();
 		System.out.println("PIN: ");
 		pin = in.nextInt();
-		
+	
 		BankAccount account = new BankAccount(balance, pin, user);
 		return account;
 	}
+**/
 	
-	private void start() {
-		System.out.print(this.bankAccount.getAccountHolder().getName());
-	}
 }
