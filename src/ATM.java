@@ -10,15 +10,45 @@ public class ATM {
 	}
 
 	public static void main(String args[]) {
-		ATM atm = new ATM(new BankAccount(12, 12, new AccountHolder(12, "jeff", 908, "jf")));
+		ATM atm = new ATM(
+				new BankAccount(						// create new BankAccount
+					0,							// initial balance is 0
+					new AccountHolder(						// create new User
+						1234,						// PIN is 1234
+						"Ryan Wilson",					// name is Ryan Wilson
+						"January 1, 1970",				// date of birth is January 1, 1970
+						"123 Main St., Scotch Plains, NJ 07076"		// address is 123 Main St., Scotch Plains, NJ 07076
+					)
+				)
+			);
 
 		atm.run();
 	}
 	
 	public void run() {
 		in = new Scanner(System.in);
-		System.out.print("Account # : ");
-		System.out.print("    PIN # : ");
+		
+		boolean secure = false;
+		while(!secure) {
+			System.out.print("Account # : ");
+			long accountNumber = in.nextLong();
+			System.out.print("    PIN # : ");
+			int PIN = in.nextInt();
+			if (this.bankAccount.getAccountNumber() == accountNumber && this.bankAccount.getAccountHolder().getPIN() == PIN) {
+				secure = true;
+			}
+			else {
+				System.out.println("Invalid account number and/or PIN.");
+			}
+		
+		System.out.print("Hi " + this.bankAccount.getAccountHolder().getName() + "!");
+		}
+		
+		
+		
+		
+		
+		
 		//ask user for account #
 		//Ask for pin
 		//validate account/pin
@@ -28,7 +58,7 @@ public class ATM {
 	}
 	
 /**	
-	public static BankAccount newAccount() {
+	OLD  CODE: public static BankAccount newAccount() {
 		int ssn; String name; double phone; String address; double balance; int pin;
 		
 		System.out.println("NEW ACCOUNT");
