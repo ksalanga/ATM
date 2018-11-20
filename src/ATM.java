@@ -15,9 +15,9 @@ public class ATM {
 					0,							// initial balance is 0
 					new AccountHolder(						// create new User
 						1234,						// PIN is 1234
-						"Kenneth Salanga",					// name is Ryan Wilson
-						"December 9, 2000",				// date of birth is January 1, 1970
-						"123 street"		// address is 123 Main St., Scotch Plains, NJ 07076
+						"Kenneth Salanga",					// name is Kenneth Salanga
+						"December 9, 2000",				// date of birth is December 9, 2000
+						"123 street"		// address is 123 street
 					)
 				)
 			);
@@ -28,6 +28,7 @@ public class ATM {
 	public void run() {
 		in = new Scanner(System.in);
 		boolean secure = false;
+		
 		while(!secure) {
 			System.out.print("Account # : ");
 			long accountNumber = in.nextLong();
@@ -64,9 +65,13 @@ public class ATM {
 				System.out.print("\nAlright, so we're depositing some money.\r\n" + 
 						"\r\n" + 
 						"Enter Amount: ");
-				double deposit = in.nextInt();
-				this.bankAccount.setBalance(this.bankAccount.getBalance() + deposit);
-				System.out.print("Deposited $" + deposit + ". Updated balance is $" + this.bankAccount.getBalance());
+				double deposit = in.nextDouble();
+				
+				if(this.bankAccount.deposit(deposit) == 0) {
+					System.out.print("\nAmount must be greater than $0.00.");
+				} else {
+					System.out.print("\nDeposited $" + deposit + ". Updated balance is $" + this.bankAccount.getBalance());
+				}
 				
 				menu();
 			case 2:
@@ -80,12 +85,15 @@ public class ATM {
 					
 					double withdraw = in.nextDouble();
 					
-					 if(this.bankAccount.withdraw(withdraw) == 0) {
+					if(this.bankAccount.withdraw(withdraw) == 0) {
 						System.out.print("\nInsufficient funds.");
-					} else {
-						this.bankAccount.withdraw(withdraw);
-						System.out.print("\nWithdrew $" + withdraw + " Updated balance is $" + this.bankAccount.getBalance());
-					};
+					} 
+					else if(this.bankAccount.withdraw(withdraw) == 1) {
+						System.out.print("\nAmount must be greater than $0.00.");
+					} 
+					else {
+						System.out.print("\nWithdrew $" + withdraw + ". Updated balance is $" + this.bankAccount.getBalance());
+					}
 				}
 
 				menu();
