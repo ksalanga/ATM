@@ -50,7 +50,6 @@ public class ATM {
 	
 	public void menu() {
 		in = new Scanner(System.in);
-		int menu = 0;
 		
 		System.out.print("\n\n   [1] Deposit\r\n" + 
 				"   [2] Withdraw\r\n" + 
@@ -59,54 +58,53 @@ public class ATM {
 				"\r\n" + 
 				"Make a selection: ");
 		
-		while(menu == 0) {
-			switch(in.nextInt()) {
-			case 1:
-				System.out.print("\nAlright, so we're depositing some money.\r\n" + 
+		switch(in.nextInt()) {
+		case 1:
+			System.out.print("\nAlright, so we're depositing some money.\r\n" + 
+					"\r\n" + 
+					"Enter Amount: ");
+			double deposit = in.nextDouble();
+			
+			if(this.bankAccount.deposit(deposit) == 0) {
+				System.out.print("\nAmount must be greater than $0.00.");
+			} else {
+				System.out.print("\nDeposited $" + deposit + ". Updated balance is $" + this.bankAccount.getBalance() + ".");
+			}
+			
+			menu();
+		case 2:
+			if (this.bankAccount.getBalance() == 0) {
+				System.out.print("\nYou don't have any money to withdraw. Try depositing money first.");
+			}
+			else {
+				System.out.print("\nAlright, so we're withdrawing some money.\r\n" + 
 						"\r\n" + 
 						"Enter Amount: ");
-				double deposit = in.nextDouble();
 				
-				if(this.bankAccount.deposit(deposit) == 0) {
+				double withdraw = in.nextDouble();
+				
+				if(this.bankAccount.withdraw(withdraw) == 2) {
+					System.out.print("\nWithdrew $" + withdraw + ". Updated balance is $" + this.bankAccount.getBalance() + ".");
+				} 
+				else if(this.bankAccount.withdraw(withdraw) == 1) {
 					System.out.print("\nAmount must be greater than $0.00.");
-				} else {
-					System.out.print("\nDeposited $" + deposit + ". Updated balance is $" + this.bankAccount.getBalance() + ".");
-				}
-				
-				menu();
-			case 2:
-				if (this.bankAccount.getBalance() == 0) {
-					System.out.print("\nYou don't have any money to withdraw. Try depositing money first.");
-				}
+				} 
 				else {
-					System.out.print("\nAlright, so we're withdrawing some money.\r\n" + 
-							"\r\n" + 
-							"Enter Amount: ");
-					
-					double withdraw = in.nextDouble();
-					
-					if(this.bankAccount.withdraw(withdraw) == 2) {
-						System.out.print("\nWithdrew $" + withdraw + ". Updated balance is $" + this.bankAccount.getBalance() + ".");
-					} 
-					else if(this.bankAccount.withdraw(withdraw) == 1) {
-						System.out.print("\nAmount must be greater than $0.00.");
-					} 
-					else {
-						System.out.print("\nInsufficient funds.");
-					}
+					System.out.print("\nInsufficient funds.");
 				}
-
-				menu();
-			case 3:
-				System.out.print("\nCurrent balance is $" + this.bankAccount.getBalance() + ".");
-				menu();
-			case 4:
-				System.out.print("\nGoodye!");
-				break;
-			default: 
-				menu();
 			}
+
+			menu();
+		case 3:
+			System.out.print("\nCurrent balance is $" + this.bankAccount.getBalance() + ".");
+			menu();
+		case 4:
+			System.out.print("\nGoodye!");
+			break;
+		default: 
+			menu();
 		}
+			
 		in.close();
 	}	
 }
