@@ -113,7 +113,7 @@ public class BankAccount {
 		} else if (amount <= 0) {
 			return 1;
 		} else {
-			balance = balance - amount;
+			balance -= amount;
 			
 			return 2;
 		}

@@ -15,9 +15,9 @@ public class ATM {
 					0,							// initial balance is 0
 					new AccountHolder(						// create new User
 						1234,						// PIN is 1234
-						"Ryan Wilson",					// name is Ryan Wilson
-						"January 1, 1970",				// date of birth is January 1, 1970
-						"123 Main St., Scotch Plains, NJ 07076"		// address is 123 Main St., Scotch Plains, NJ 07076
+						"Kenneth Salanga",					// name is Ryan Wilson
+						"December 9, 2000",				// date of birth is January 1, 1970
+						"123 street"		// address is 123 Main St., Scotch Plains, NJ 07076
 					)
 				)
 			);
@@ -27,7 +27,6 @@ public class ATM {
 	
 	public void run() {
 		in = new Scanner(System.in);
-		
 		boolean secure = false;
 		while(!secure) {
 			System.out.print("Account # : ");
@@ -40,49 +39,66 @@ public class ATM {
 			else {
 				System.out.println("Invalid account number and/or PIN.");
 			}
-		
-		System.out.print("Hi " + this.bankAccount.getAccountHolder().getName() + "!");
 		}
 		
+		System.out.print("\nHi " + this.bankAccount.getAccountHolder().getName() + "! What can I help you with?");
 		
-		
-		
-		
-		
-		//ask user for account #
-		//Ask for pin
-		//validate account/pin
-		//if valid, show menu
-		
+		menu();
 		in.close();
 	}
 	
-/**	
-	OLD  CODE: public static BankAccount newAccount() {
-		int ssn; String name; double phone; String address; double balance; int pin;
+	public void menu() {
+		in = new Scanner(System.in);
+		int menu = 0;
 		
-		System.out.println("NEW ACCOUNT");
-		System.out.println("SSN: ");
-		ssn = in.nextInt();
-		in.nextLine();
-		System.out.println("Name: ");
-		name = in.nextLine();
-		System.out.println("Phone: ");
-		phone = in.nextDouble();
-		in.nextLine();
-		System.out.println("Address: ");
-		address = in.nextLine();
+		System.out.print("\n\n   [1] Deposit\r\n" + 
+				"   [2] Withdraw\r\n" + 
+				"   [3] View Balance\r\n" + 
+				"   [4] Exit\r\n" + 
+				"\r\n" + 
+				"Make a selection: ");
 		
-		AccountHolder user = new AccountHolder(ssn, name, phone, address);
-		
-		System.out.println("Balance: ");
-		balance = in.nextDouble();
-		System.out.println("PIN: ");
-		pin = in.nextInt();
-	
-		BankAccount account = new BankAccount(balance, pin, user);
-		return account;
-	}
-**/
-	
+		while(menu == 0) {
+			switch(in.nextInt()) {
+			case 1:
+				System.out.print("\nAlright, so we're depositing some money.\r\n" + 
+						"\r\n" + 
+						"Enter Amount: ");
+				double deposit = in.nextInt();
+				this.bankAccount.setBalance(this.bankAccount.getBalance() + deposit);
+				System.out.print("Deposited $" + deposit + ". Updated balance is $" + this.bankAccount.getBalance());
+				
+				menu();
+			case 2:
+				if (this.bankAccount.getBalance() == 0) {
+					System.out.print("\nYou don't have any money to withdraw. Try depositing money first.");
+				}
+				else {
+					System.out.print("\nAlright, so we're withdrawing some money.\r\n" + 
+							"\r\n" + 
+							"Enter Amount: ");
+					
+					double withdraw = in.nextDouble();
+					
+					 if(this.bankAccount.withdraw(withdraw) == 0) {
+						System.out.print("\nInsufficient funds.");
+					} else {
+						this.bankAccount.withdraw(withdraw);
+						System.out.print("\nWithdrew $" + withdraw + " Updated balance is $" + this.bankAccount.getBalance());
+					};
+				}
+
+				menu();
+			case 3:
+				System.out.print("\nCurrent balance is $" + this.bankAccount.getBalance() + ".");
+				menu();
+			case 4:
+				System.out.print("\nGoodye!");
+				break;
+			default: 
+				menu();
+			}
+		}
+		in.close();
+	}	
 }
