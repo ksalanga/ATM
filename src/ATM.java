@@ -70,7 +70,7 @@ public class ATM {
 				if(this.bankAccount.deposit(deposit) == 0) {
 					System.out.print("\nAmount must be greater than $0.00.");
 				} else {
-					System.out.print("\nDeposited $" + deposit + ". Updated balance is $" + this.bankAccount.getBalance());
+					System.out.print("\nDeposited $" + deposit + ". Updated balance is $" + this.bankAccount.getBalance() + ".");
 				}
 				
 				menu();
@@ -85,14 +85,14 @@ public class ATM {
 					
 					double withdraw = in.nextDouble();
 					
-					if(this.bankAccount.withdraw(withdraw) == 0) {
-						System.out.print("\nInsufficient funds.");
+					if(this.bankAccount.withdraw(withdraw) == 2) {
+						System.out.print("\nWithdrew $" + withdraw + ". Updated balance is $" + this.bankAccount.getBalance() + ".");
 					} 
 					else if(this.bankAccount.withdraw(withdraw) == 1) {
 						System.out.print("\nAmount must be greater than $0.00.");
 					} 
 					else {
-						System.out.print("\nWithdrew $" + withdraw + ". Updated balance is $" + this.bankAccount.getBalance());
+						System.out.print("\nInsufficient funds.");
 					}
 				}
 
